@@ -9,8 +9,8 @@ let read = {
   raw: (ask, maskAfter) => {
     // masking isn't available without setRawMode
     if (!stdin.setRawMode || process.env.TERM === 'dumb') return read.notty(ask)
+    console.log('pp', 'raw');
     return new Promise(function (resolve, reject) {
-      console.log('pp', 'raw');
       const ansi = require('ansi-escapes')
 
       let input = ''
@@ -107,7 +107,7 @@ let read = {
  * @returns {Promise<string>} input from user
  */
 function prompt (ask, options) {
-  console.log('pp', 'prompt')
+  console.log('pp', new Error().stack);
   options = Object.assign({
     method: 'mask'
   }, options)
