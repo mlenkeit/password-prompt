@@ -89,6 +89,7 @@ let read = {
         })
       stderr.write('\n')
       if (output.error) return reject(output.error)
+      console.log('pp-notty-output', output);
       resolve(output.stdout.trim())
     })
   }
