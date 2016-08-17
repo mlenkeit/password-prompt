@@ -9,7 +9,7 @@ let read = {
   raw: (ask, maskAfter) => {
     // masking isn't available without setRawMode
     if (!stdin.setRawMode || process.env.TERM === 'dumb') return read.notty(ask)
-    console.log('pp', 'raw');
+    console.error('pp', 'raw');
     return new Promise(function (resolve, reject) {
       const ansi = require('ansi-escapes')
 
@@ -78,7 +78,7 @@ let read = {
     })
   },
   notty: ask => {
-    console.log('pp', 'notty');
+    console.error('pp', 'notty');
     return new Promise((resolve, reject) => {
       const spawn = require('cross-spawn')
       stderr.write(ask)
@@ -89,7 +89,7 @@ let read = {
         })
       stderr.write('\n')
       if (output.error) return reject(output.error)
-      console.log('pp-notty-output', output);
+      console.error('pp-notty-output', output);
       resolve(output.stdout.trim())
     })
   }
@@ -108,7 +108,7 @@ let read = {
  * @returns {Promise<string>} input from user
  */
 function prompt (ask, options) {
-  console.log('pp', new Error().stack);
+  console.error('pp', new Error().stack);
   options = Object.assign({
     method: 'mask'
   }, options)
